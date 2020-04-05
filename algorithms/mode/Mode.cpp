@@ -2,6 +2,7 @@ void Mode::begin()
 {
   mode = OFF;
   lastCycleSignal = NO_SIGNAL;
+  lastColorChangeTimestamp = 0;
 }
 
 #ifdef SETTING_BUTTON
@@ -12,12 +13,11 @@ void Mode::setOperationMode(bool newMode)
 #endif
 
 #ifdef ULTRASONIC_SENSOR
-void Mode::changeOperationMode()
+void Mode::changeOperationMode(IrSignals_t lastSignal)
 {
-  IrSignals_t currentSignal = ir_sensor.getLastSignal();
-  if(lastCycleSignal != currentSignal)
+  if(lastCycleSignal != lastSignal)
   {
-    switch(ir_sensor.getLastSignal())
+    switch(lastSignal)
     {
       case POWER:
         if(powerMode)
@@ -25,11 +25,14 @@ void Mode::changeOperationMode()
           powerMode = false;
           mode = OFF;
           rgb_led.changeCurrentColor(BLACK);
+          rgb_led.setCurrentColor();
         }
         else
         {
           powerMode = true;
           mode = AUTOMATIC;
+          rgb_led.changeCurrentColor(RED);
+          rgb_led.setCurrentColor();
         }
         break;
       case ONE:
@@ -48,32 +51,80 @@ void Mode::changeOperationMode()
         //Do nothing
         break;
     }
-    lastCycleSignal = currentSignal;
   }
+  lastCycleSignal = lastSignal;
 }
 #endif
 
 void Mode::activeMode()
 {
-  switch (mode)
-  {
-    case OFF:
-      rgb_led.changeCurrentColor(BLACK);
-      break;
+  switch (mode) {
     case AUTOMATIC:
-      if ((ultrasonic_sensor.getDistance() > ULTRASONIC_SENSOR_TRIGGER_DISTANCE) && (light_sensor.getLightIntensitiy() <= LIGHT_SENSOR_BORDER))
-      {
-        rgb_led.changeCurrentColor(rgb_led.getCurrentColor());
-      }
-      else
-      {
-        rgb_led.changeCurrentColor(rgb_led.getCurrentColor());
+      if ((ultrasonic_sensor.getDistance() > ULTRASONIC_SENSOR_TRIGGER_DISTANCE) &&
+          (light_sensor.getLightIntensitiy() <= LIGHT_SENSOR_BORDER)) {
+        rgb_led.setCurrentColor();
+      } else {
+        rgb_led.changeCurrentColor(BLACK);
+        rgb_led.setCurrentColor();
       }
       break;
     case PERMANENT:
-      rgb_led.changeCurrentColor(rgb_led.getCurrentColor());
+      rgb_led.setCurrentColor();
+      break;
+    default:
+      //Do nothing
       break;
   }
-  //DEBUG_PRINTLN("POWER STATE: " + String(powerMode));
-  //DEBUG_PRINTLN("CURRENT MODE: " + String(mode));
+  DEBUG_PRINTLN("POWER STATE: " + String(powerMode) + ", " + "CURRENT MODE: " + String(mode));
+}
+
+void Mode::switchColor(IrSignals_t lastSignal)
+{
+  if((millis() - lastColorChangeTimestamp) >= MIN_TIME_BETWEEN_COLOR_CHANGE_MS)
+  {
+    Color_t oldColor = rgb_led.getCurrentColor();
+    switch (lastSignal) {
+      case UP:
+        if (powerMode) {
+          switch (oldColor) {
+            case BLACK:
+              rgb_led.changeCurrentColor(RED);
+            case RED:
+              rgb_led.changeCurrentColor(GREEN);
+              break;
+            case GREEN:
+              rgb_led.changeCurrentColor(BLUE);
+              break;
+            case BLUE:
+              rgb_led.changeCurrentColor(RED);
+              break;
+            default: //Do nothing
+              break;
+          }
+        }
+        break;
+      case DOWN:
+        if (powerMode) {
+          switch (oldColor) {
+            case BLACK:
+              rgb_led.changeCurrentColor(BLUE);
+            case RED:
+              rgb_led.changeCurrentColor(BLUE);
+              break;
+            case GREEN:
+              rgb_led.changeCurrentColor(RED);
+              break;
+            case BLUE:
+              rgb_led.changeCurrentColor(GREEN);
+              break;
+            default: //Do nothing
+              break;
+          }
+        }
+        break;
+      default: //Do nothing
+        break;
+    }
+    lastColorChangeTimestamp = millis();
+  }
 }

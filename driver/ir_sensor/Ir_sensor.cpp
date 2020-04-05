@@ -16,7 +16,9 @@ void Ir_sensor::resetLastSignalTimestamp()
 
 IrSignals_t Ir_sensor::getLastSignal()
 {
-  return lastSignal;
+  IrSignals_t returnValue = lastSignal;
+  lastSignal = NO_SIGNAL;
+  return returnValue;
 }
 
 IrSignals_t Ir_sensor::translate(unsigned long signal)

@@ -1,7 +1,7 @@
 #ifdef RGB_LED
 void RGB_Led::begin()
 {
-  currentColor = RED;
+  currentColor = BLACK;
   pinMode(RGB_LED_RED_PIN, OUTPUT);
   pinMode(RGB_LED_GREEN_PIN, OUTPUT);
   pinMode(RGB_LED_BLUE_PIN, OUTPUT);
@@ -15,6 +15,11 @@ Color_t RGB_Led::getCurrentColor()
 void RGB_Led::changeCurrentColor(Color_t newColor)
 {
   currentColor = newColor;
+  DEBUG_PRINTLN("CURRENT COLOR: " + String(currentColor));
+}
+
+void RGB_Led::setCurrentColor()
+{
   switch (currentColor)
   {
     case BLACK:
@@ -29,8 +34,10 @@ void RGB_Led::changeCurrentColor(Color_t newColor)
     case BLUE:
       setColor(0,0,255);
       break;
+    default:
+      //Do nothing
+      break;
   }
-  DEBUG_PRINTLN("CURRENT COLOR: " + String(currentColor));
 }
 
 void RGB_Led::setColor(uint8_t redValue, uint8_t greenValue, uint8_t blueValue)

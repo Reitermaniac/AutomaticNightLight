@@ -15,6 +15,7 @@
       public:
         void begin();
         void changeCurrentColor(Color_t newColor);
+        void setCurrentColor();
         Color_t getCurrentColor();
 
       private:
