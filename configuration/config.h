@@ -26,6 +26,7 @@
   #ifdef PT_ULTRASONIC_SENSOR
     #define ULTRASONIC_SENSOR
     #define MAX_MEASURED_DISTANCE_CM             200
+    #define ULTRASONIC_SENSOR_TRIGGER_DISTANCE   100
     #define ULTRASONIC_SENSOR_ECHO_PIN           11
     #define ULTRASONIC_SENSOR_TRIGGER_PIN        12
   #endif

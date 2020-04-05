@@ -16,9 +16,7 @@ void Button::getButtonInput()
     {
       //ToDo: Set LED on Sensor Mode
       DEBUG_PRINTLN("Button Sensor");
-#ifdef RGB_LED
-      rgb_led.setColor(255,0,0);
-#endif
+      mode.setOperationMode(true);
       buttonShortlyPressed = true;
       buttonPressTime = millis();
     }
@@ -27,9 +25,7 @@ void Button::getButtonInput()
     {
       //ToDo: Set LED Permanent
       DEBUG_PRINTLN("Button Perm");
-#ifdef RGB_LED
-      rgb_led.setColor(0,255,0);
-#endif
+      mode.setOperationMode(false);
       buttonShortlyPressed = true;
       buttonPressTime = millis();
     }

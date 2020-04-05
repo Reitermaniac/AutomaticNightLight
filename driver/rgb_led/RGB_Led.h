@@ -3,10 +3,23 @@
 
   #ifdef RGB_LED
 
+    typedef enum {
+      BLACK,
+      RED,
+      GREEN,
+      BLUE
+    } Color_t;
+
     class RGB_Led
     {
       public:
         void begin();
+        void changeCurrentColor(Color_t newColor);
+        Color_t getCurrentColor();
+
+      private:
+        Color_t currentColor;
+
         void setColor(uint8_t redValue, uint8_t greenValue, uint8_t blueValue);
     };
   #endif

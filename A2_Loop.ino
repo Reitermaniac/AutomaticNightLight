@@ -13,6 +13,8 @@ void loop()
   ir_sensor_getSignal();
   //DEBUG_PRINTLN("Signal: " + String(ir_decoded_signal));
   #endif
+  
+  mode.activeMode();
 }
 
 void ir_sensor_getSignal()
@@ -22,6 +24,7 @@ void ir_sensor_getSignal()
     if(irReceiver.decode(&ir_undecoded_signal))
     {
       ir_decoded_signal = ir_sensor.translate(ir_undecoded_signal.value);
+      mode.changeOperationMode();
       irReceiver.resume();
       ir_sensor.resetLastSignalTimestamp();
     } 

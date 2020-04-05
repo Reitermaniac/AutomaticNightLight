@@ -18,7 +18,9 @@ char VERSION[] = "1.0.0";
 #include "driver/button/Button.h"
 #include "driver/light_sensor/Light_sensor.h"
 #include "driver/ir_sensor/Ir_sensor.h"
+#include "algorithms/mode/Mode.h"
 
+bool powerMode;
 #ifdef ULTRASONIC_SENSOR
   NewPing sonar(ULTRASONIC_SENSOR_TRIGGER_PIN, ULTRASONIC_SENSOR_ECHO_PIN, MAX_MEASURED_DISTANCE_CM);
   Ultrasonic_sensor ultrasonic_sensor;
@@ -38,6 +40,7 @@ char VERSION[] = "1.0.0";
   Ir_sensor ir_sensor;
   IrSignals_t ir_decoded_signal;
 #endif
+Mode mode;
 
 #include "libraries/IRremote/IRremote.cpp"
 #include "libraries/NewPing/NewPing.cpp"
@@ -46,6 +49,7 @@ char VERSION[] = "1.0.0";
 #include "driver//Button/Button.cpp"
 #include "driver/light_sensor/Light_sensor.cpp"
 #include "driver/ir_sensor/Ir_sensor.cpp"
+#include "algorithms/mode/Mode.cpp"
 
 //**********************************************************************************************************
 // Prototypes

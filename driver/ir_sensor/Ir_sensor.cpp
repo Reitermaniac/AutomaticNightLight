@@ -1,46 +1,95 @@
 #ifdef IR_SENSOR
 void Ir_sensor::begin()
 {
-  lastSignal = 0;
+  lastSignal = NO_SIGNAL;
 }
 
 unsigned long Ir_sensor::getLastSignalTimestamp()
 {
-  return lastSignal;
+  return lastSignalTimestamp;
 }
 
 void Ir_sensor::resetLastSignalTimestamp()
 {
-  lastSignal = millis();
+  lastSignalTimestamp = millis();
+}
+
+IrSignals_t Ir_sensor::getLastSignal()
+{
+  return lastSignal;
 }
 
 IrSignals_t Ir_sensor::translate(unsigned long signal)
 {
   switch(signal)
   {
-    case 0xFFA25D: return POWER;
-    case 0xFFE21D: return FUNC_STOP;
-    case 0xFF629D: return VOL_UP;
-    case 0xFF22DD: return FAST_BACK;
-    case 0xFF02FD: return PAUSE;
-    case 0xFFC23D: return FAST_FORWARD;
-    case 0xFFE01F: return DOWN;
-    case 0xFFA857: return VOL_DOWN;
-    case 0xFF906F: return UP;
-    case 0xFF9867: return EQ;
-    case 0xFFB04F: return ST_REPT;
-    case 0xFF6897: return ZERO;
-    case 0xFF30CF: return ONE;
-    case 0xFF18E7: return TWO;
-    case 0xFF7A85: return THREE;
-    case 0xFF10EF: return FOUR;
-    case 0xFF38C7: return FIVE;
-    case 0xFF5AA5: return SIX;
-    case 0xFF42BD: return SEVEN;
-    case 0xFF4AB5: return EIGHT;
-    case 0xFF52AD: return NINE;
-    default: return ERROR;
+    case 0xFFA25D:
+      lastSignal = POWER;
+      break;
+    case 0xFFE21D:
+      lastSignal = FUNC_STOP;
+      break;
+    case 0xFF629D:
+      lastSignal = VOL_UP;
+      break;
+    case 0xFF22DD:
+      lastSignal = FAST_BACK;
+      break;
+    case 0xFF02FD:
+      lastSignal = PAUSE;
+      break;
+    case 0xFFC23D:
+      lastSignal = FAST_FORWARD;
+      break;
+    case 0xFFE01F:
+      lastSignal = DOWN;
+      break;
+    case 0xFFA857:
+      lastSignal = VOL_DOWN;
+      break;
+    case 0xFF906F:
+      lastSignal = UP;
+      break;
+    case 0xFF9867:
+      lastSignal = EQ;
+      break;
+    case 0xFFB04F:
+      lastSignal = ST_REPT;
+      break;
+    case 0xFF6897:
+      lastSignal = ZERO;
+      break;
+    case 0xFF30CF:
+      lastSignal = ONE;
+      break;
+    case 0xFF18E7:
+      lastSignal = TWO;
+      break;
+    case 0xFF7A85:
+      lastSignal = THREE;
+      break;
+    case 0xFF10EF:
+      lastSignal = FOUR;
+      break;
+    case 0xFF38C7:
+      lastSignal = FIVE;
+      break;
+    case 0xFF5AA5:
+      lastSignal = SIX;
+      break;
+    case 0xFF42BD:
+      lastSignal = SEVEN;
+      break;
+    case 0xFF4AB5:
+      lastSignal = EIGHT;
+      break;
+    case 0xFF52AD:
+      lastSignal = NINE;
+      break;
+    default:
+      lastSignal = ERROR;
   }
+  return lastSignal;
 };
 #endif
 

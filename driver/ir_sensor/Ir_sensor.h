@@ -10,9 +10,11 @@
         unsigned long getLastSignalTimestamp();
         void resetLastSignalTimestamp();
         IrSignals_t translate(unsigned long signal);
+        IrSignals_t getLastSignal();
 
       private:
-        unsigned long lastSignal;
+        unsigned long lastSignalTimestamp;
+        IrSignals_t lastSignal;
     };
   #endif
 #endif //AUTOMATIC_NIGHT_LIGHT_IR_SENSOR_H

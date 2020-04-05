@@ -1,7 +1,8 @@
 void setup() 
 {
   DEBUG_BEGIN(9600);
-
+  powerMode = false;
+  mode.begin();
   #ifdef SETTING_BUTTON
   button.begin();
   #endif
