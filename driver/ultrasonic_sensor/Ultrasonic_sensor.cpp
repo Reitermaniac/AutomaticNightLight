@@ -8,7 +8,7 @@ unsigned int Ultrasonic_sensor::getDistance()
 {
   if((millis() - timeOfLastMeasurement) >= TIME_BETWEEN_MEASUREMENTS_MS)
   {
-    timeOfLastMeasurement = 0;
+    timeOfLastMeasurement = millis();
     return sonar.ping_cm();
   }
   else
