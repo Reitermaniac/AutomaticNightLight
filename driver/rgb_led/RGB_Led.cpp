@@ -23,16 +23,16 @@ void RGB_Led::setCurrentColor()
   switch (currentColor)
   {
     case BLACK:
-      setColor(0,0,0);
+      setColor(255,255,255);
       break;
     case RED:
-      setColor(255,0,0);
+      setColor(0,255,255);
       break;
     case GREEN:
-      setColor(0,255,0);
+      setColor(255,0,255);
       break;
     case BLUE:
-      setColor(0,0,255);
+      setColor(255,255,0);
       break;
     default:
       //Do nothing
