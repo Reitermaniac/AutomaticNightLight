@@ -161,6 +161,9 @@ void Mode::updatePowerMode()
     mode = OFF;
     rgb_led.changeCurrentColor(BLACK);
     rgb_led.setCurrentColor();
+#ifdef POWER_LED
+    digitalWrite(POWER_LED_PIN, LOW);
+#endif
   }
   else
   {
@@ -168,5 +171,8 @@ void Mode::updatePowerMode()
     mode = AUTOMATIC;
     rgb_led.changeCurrentColor(RED);
     rgb_led.setCurrentColor();
+#ifdef POWER_LED
+    digitalWrite(POWER_LED_PIN, HIGH);
+#endif
   }
 }

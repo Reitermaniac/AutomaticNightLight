@@ -8,7 +8,13 @@
   #define PT_RGB_LED
   #define PT_ULTRASONIC_SENSOR
   #define PT_LIGHT_SENSOR
+  #define PT_POWER_LED
   //#define PT_IR_SENSOR
+
+  #ifdef PT_POWER_LED
+    #define POWER_LED
+    #define POWER_LED_PIN                       8
+  #endif
 
   #ifdef PT_SETTING_BUTTON
     #define SETTING_BUTTON

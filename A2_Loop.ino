@@ -19,7 +19,6 @@ void loop()
   #ifdef IR_SENSOR
   mode.switchColor(ir_decoded_signal);
   #endif
-  delay(500);
 }
 
 #ifdef IR_SENSOR
