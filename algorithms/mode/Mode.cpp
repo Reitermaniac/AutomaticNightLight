@@ -1,18 +1,51 @@
 void Mode::begin()
 {
   mode = OFF;
+#ifdef IR_SENSOR
   lastCycleSignal = NO_SIGNAL;
+#endif
   lastColorChangeTimestamp = 0;
 }
 
 #ifdef SETTING_BUTTON
-void Mode::setOperationMode(bool newMode)
+void Mode::setOperationMode(ButtonMode_t newMode)
 {
-  mode = (newMode) ? AUTOMATIC : PERMANENT;
+  switch(newMode)
+  {
+    case POWER:
+      updatePowerMode();
+      break;
+    case AUTO:
+      mode = AUTOMATIC;
+      break;
+    case PERM:
+      mode = PERMANENT;
+      break;
+    case COLOR:
+      Color_t currColor = rgb_led.getCurrentColor();
+      if (powerMode) {
+        switch (currColor) {
+          case BLACK:
+            rgb_led.changeCurrentColor(RED);
+          case RED:
+            rgb_led.changeCurrentColor(GREEN);
+            break;
+          case GREEN:
+            rgb_led.changeCurrentColor(BLUE);
+            break;
+          case BLUE:
+            rgb_led.changeCurrentColor(RED);
+            break;
+          default: //Do nothing
+            break;
+        }
+      }
+      break;
+  }
 }
 #endif
 
-#ifdef ULTRASONIC_SENSOR
+#ifdef IR_SENSOR
 void Mode::changeOperationMode(IrSignals_t lastSignal)
 {
   if(lastCycleSignal != lastSignal)
@@ -20,20 +53,7 @@ void Mode::changeOperationMode(IrSignals_t lastSignal)
     switch(lastSignal)
     {
       case POWER:
-        if(powerMode)
-        {
-          powerMode = false;
-          mode = OFF;
-          rgb_led.changeCurrentColor(BLACK);
-          rgb_led.setCurrentColor();
-        }
-        else
-        {
-          powerMode = true;
-          mode = AUTOMATIC;
-          rgb_led.changeCurrentColor(RED);
-          rgb_led.setCurrentColor();
-        }
+        updatePowerMode();
         break;
       case ONE:
         if(powerMode)
@@ -56,6 +76,7 @@ void Mode::changeOperationMode(IrSignals_t lastSignal)
 }
 #endif
 
+#ifdef RGB_LED
 void Mode::activeMode()
 {
   switch (mode) {
@@ -78,6 +99,7 @@ void Mode::activeMode()
   DEBUG_PRINTLN("POWER STATE: " + String(powerMode) + ", " + "CURRENT MODE: " + String(mode));
 }
 
+#ifdef IR_SENSOR
 void Mode::switchColor(IrSignals_t lastSignal)
 {
   if((millis() - lastColorChangeTimestamp) >= MIN_TIME_BETWEEN_COLOR_CHANGE_MS)
@@ -126,5 +148,25 @@ void Mode::switchColor(IrSignals_t lastSignal)
         break;
     }
     lastColorChangeTimestamp = millis();
+  }
+}
+#endif
+#endif
+
+void Mode::updatePowerMode()
+{
+  if(powerMode)
+  {
+    powerMode = false;
+    mode = OFF;
+    rgb_led.changeCurrentColor(BLACK);
+    rgb_led.setCurrentColor();
+  }
+  else
+  {
+    powerMode = true;
+    mode = AUTOMATIC;
+    rgb_led.changeCurrentColor(RED);
+    rgb_led.setCurrentColor();
   }
 }

@@ -14,20 +14,25 @@ class Mode
       public:
         void begin();
 #ifdef SETTING_BUTTON
-        void setOperationMode(bool newMode);
+        void setOperationMode(ButtonMode_t newMode);
 #endif
-#ifdef ULTRASONIC_SENSOR
+#ifdef IR_SENSOR
         void changeOperationMode(IrSignals_t lastSignal);
 #endif
 #ifdef RGB_LED
         void activeMode();
+#ifdef IR_SENSOR
         void switchColor(IrSignals_t lastSignal);
+#endif
 #endif
 
       private:
         Mode_t mode;
+#ifdef IR_SENSOR
         IrSignals_t lastCycleSignal;
+#endif
         unsigned long lastColorChangeTimestamp;
+        void updatePowerMode();
     };
 
 #endif //AUTOMATIC_NIGHT_LIGHT_MODE_H

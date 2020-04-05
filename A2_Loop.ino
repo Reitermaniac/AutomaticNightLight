@@ -13,12 +13,16 @@ void loop()
   ir_sensor_getSignal();
   //DEBUG_PRINTLN("Signal: " + String(ir_decoded_signal));
   #endif
+  
   mode.activeMode();
+  
+  #ifdef IR_SENSOR
   mode.switchColor(ir_decoded_signal);
-
+  #endif
   delay(500);
 }
 
+#ifdef IR_SENSOR
 void ir_sensor_getSignal()
 {
   if((millis() - ir_sensor.getLastSignalTimestamp()) >= IR_SENSOR_TIME_BETWEEN_SIGNALS_MS)
@@ -36,3 +40,4 @@ void ir_sensor_getSignal()
     ir_decoded_signal = NO_SIGNAL;
   }
 }
+#endif

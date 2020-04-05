@@ -1,6 +1,8 @@
 #ifdef SETTING_BUTTON
 void Button::begin()
 {
+  pinMode(BUTTON_TOGGLE_COLOR_PIN, INPUT_PULLUP);
+  pinMode(BUTTON_TOGGLE_ON_OFF_PIN, INPUT_PULLUP);
   pinMode(BUTTON_SENSOR_PIN, INPUT_PULLUP);
   pinMode(BUTTON_PERM_PIN, INPUT_PULLUP);
 
@@ -12,11 +14,29 @@ void Button::getButtonInput()
 {
   if(!buttonShortlyPressed)
   {
+    if(digitalRead(BUTTON_TOGGLE_COLOR_PIN) == LOW)
+    {
+      //ToDo: Set LED on Sensor Mode
+      DEBUG_PRINTLN("Button Color");
+      mode.setOperationMode(COLOR);
+      buttonShortlyPressed = true;
+      buttonPressTime = millis();
+    }
+
+    if(digitalRead(BUTTON_TOGGLE_ON_OFF_PIN) == LOW)
+    {
+      //ToDo: Set LED on Sensor Mode
+      DEBUG_PRINTLN("Button ON/OFF");
+      mode.setOperationMode(POWER);
+      buttonShortlyPressed = true;
+      buttonPressTime = millis();
+    }
+
     if(digitalRead(BUTTON_SENSOR_PIN) == LOW)
     {
       //ToDo: Set LED on Sensor Mode
       DEBUG_PRINTLN("Button Sensor");
-      mode.setOperationMode(true);
+      mode.setOperationMode(AUTO);
       buttonShortlyPressed = true;
       buttonPressTime = millis();
     }
@@ -25,7 +45,7 @@ void Button::getButtonInput()
     {
       //ToDo: Set LED Permanent
       DEBUG_PRINTLN("Button Perm");
-      mode.setOperationMode(false);
+      mode.setOperationMode(PERM);
       buttonShortlyPressed = true;
       buttonPressTime = millis();
     }
