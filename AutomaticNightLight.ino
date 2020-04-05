@@ -11,13 +11,17 @@ char VERSION[] = "1.0.0";
 //**********************************************************************************************************
 
 #include "configuration/config.h"
+#include "driver/rgb_led/RGB_Led.h"
 #include "driver/button/Button.h"
 
+#ifdef RGB_LED
+  RGB_Led rgb_led;
+#endif
 #ifdef SETTING_BUTTON
   Button button;
 #endif
 
-//#include "libraries/Button/Button.cpp"
+#include "driver/rgb_led/RGB_Led.cpp"
 #include "driver//Button/Button.cpp"
 
 //**********************************************************************************************************

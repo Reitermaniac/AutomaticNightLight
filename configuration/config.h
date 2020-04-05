@@ -5,6 +5,7 @@
 	// DEVICE SETTINGS
 	/************************************************************************************************/
   #define PT_SETTING_BUTTON
+  #define PT_RGB_LED
 
   #ifdef PT_SETTING_BUTTON
     #define SETTING_BUTTON
@@ -12,6 +13,12 @@
     #define BUTTON_PERM_PIN     13
   #endif
 
+  #ifdef PT_RGB_LED
+    #define RGB_LED
+    #define RGB_LED_RED_PIN      3
+    #define RGB_LED_GREEN_PIN    5
+    #define RGB_LED_BLUE_PIN     6
+  #endif
 
 	/************************************************************************************************/
 	// DEBUG SETTINGS
