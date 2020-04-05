@@ -15,6 +15,7 @@ char VERSION[] = "1.0.0";
 #include "driver/ultrasonic_sensor/Ultrasonic_sensor.h"
 #include "driver/rgb_led/RGB_Led.h"
 #include "driver/button/Button.h"
+#include "driver/light_sensor/Light_sensor.h"
 
 #ifdef ULTRASONIC_SENSOR
   NewPing sonar(ULTRASONIC_SENSOR_TRIGGER_PIN, ULTRASONIC_SENSOR_ECHO_PIN, MAX_MEASURED_DISTANCE_CM);
@@ -26,10 +27,14 @@ char VERSION[] = "1.0.0";
 #ifdef SETTING_BUTTON
   Button button;
 #endif
+#ifdef LIGHT_SENSOR
+  Light_sensor light_sensor;
+#endif
 
 #include "driver/ultrasonic_sensor/Ultrasonic_sensor.cpp"
 #include "driver/rgb_led/RGB_Led.cpp"
 #include "driver//Button/Button.cpp"
+#include "driver/light_sensor/Light_sensor.cpp"
 
 //**********************************************************************************************************
 // Prototypes

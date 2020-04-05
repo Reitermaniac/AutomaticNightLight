@@ -7,6 +7,7 @@
   #define PT_SETTING_BUTTON
   #define PT_RGB_LED
   #define PT_ULTRASONIC_SENSOR
+  #define PT_LIGHT_SENSOR
 
   #ifdef PT_SETTING_BUTTON
     #define SETTING_BUTTON
@@ -26,6 +27,12 @@
     #define MAX_MEASURED_DISTANCE_CM       200
     #define ULTRASONIC_SENSOR_ECHO_PIN      11
     #define ULTRASONIC_SENSOR_TRIGGER_PIN   12
+  #endif
+
+  #ifdef PT_LIGHT_SENSOR
+    #define LIGHT_SENSOR
+    #define LIGHT_SENSOR_BORDER             50
+    #define LIGHT_SENSOR_ANALOG_PIN          0
   #endif
 
 	/************************************************************************************************/
