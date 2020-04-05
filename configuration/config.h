@@ -6,18 +6,26 @@
 	/************************************************************************************************/
   #define PT_SETTING_BUTTON
   #define PT_RGB_LED
+  #define PT_ULTRASONIC_SENSOR
 
   #ifdef PT_SETTING_BUTTON
     #define SETTING_BUTTON
-    #define BUTTON_SENSOR_PIN   12
-    #define BUTTON_PERM_PIN     13
+    #define BUTTON_SENSOR_PIN               2
+    #define BUTTON_PERM_PIN                 4
   #endif
 
   #ifdef PT_RGB_LED
     #define RGB_LED
-    #define RGB_LED_RED_PIN      3
-    #define RGB_LED_GREEN_PIN    5
-    #define RGB_LED_BLUE_PIN     6
+    #define RGB_LED_RED_PIN                 3
+    #define RGB_LED_GREEN_PIN               5
+    #define RGB_LED_BLUE_PIN                6
+  #endif
+
+  #ifdef PT_ULTRASONIC_SENSOR
+    #define ULTRASONIC_SENSOR
+    #define MAX_MEASURED_DISTANCE_CM       200
+    #define ULTRASONIC_SENSOR_ECHO_PIN      11
+    #define ULTRASONIC_SENSOR_TRIGGER_PIN   12
   #endif
 
 	/************************************************************************************************/
