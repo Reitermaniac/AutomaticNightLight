@@ -81,12 +81,12 @@ void Mode::activeMode()
 {
   switch (mode) {
     case AUTOMATIC:
-      if ((ultrasonic_sensor.getDistance() > ULTRASONIC_SENSOR_TRIGGER_DISTANCE) &&
+      if (/*(ultrasonic_sensor.getLastMeasuredValue() > ULTRASONIC_SENSOR_TRIGGER_DISTANCE) &&*/
           (light_sensor.getLightIntensitiy() <= LIGHT_SENSOR_BORDER)) {
+        DEBUG_PRINTLN(light_sensor.getLightIntensitiy());
         rgb_led.setCurrentColor();
       } else {
-        rgb_led.changeCurrentColor(BLACK);
-        rgb_led.setCurrentColor();
+        rgb_led.setColor(255,255,255);
       }
       break;
     case PERMANENT:
@@ -96,7 +96,7 @@ void Mode::activeMode()
       //Do nothing
       break;
   }
-  DEBUG_PRINTLN("POWER STATE: " + String(powerMode) + ", " + "CURRENT MODE: " + String(mode));
+  //DEBUG_PRINTLN("POWER STATE: " + String(powerMode) + ", " + "CURRENT MODE: " + String(mode));
 }
 
 #ifdef IR_SENSOR

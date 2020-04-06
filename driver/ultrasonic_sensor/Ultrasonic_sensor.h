@@ -9,10 +9,12 @@
     {
       public:
         void begin();
-        unsigned int getDistance();
+        void getDistance();
+        unsigned int getLastMeasuredValue();
 
       private:
         unsigned long timeOfLastMeasurement;
+        unsigned int lastMeasuredValue;
     };
   #endif
 #endif //AUTOMATIC_NIGHT_LIGHT_ULTRASONIC_SENSOR_H

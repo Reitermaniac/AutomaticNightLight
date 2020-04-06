@@ -11,8 +11,11 @@ char VERSION[] = "1.0.0";
 //**********************************************************************************************************
 
 #include "configuration/config.h"
-#include "libraries/IRremote/IRremote.h"
-#include "libraries/NewPing/NewPing.h"
+#ifdef IR_SENSOR
+//#include "libraries/IRremote/IRremote.h"
+#endif
+//#include "libraries/NewPing/NewPing.h"
+#include <NewPing.h>
 #include "driver/ultrasonic_sensor/Ultrasonic_sensor.h"
 #include "driver/rgb_led/RGB_Led.h"
 #include "driver/button/Button.h"
@@ -42,8 +45,10 @@ bool powerMode;
 #endif
 Mode mode;
 
+#ifdef IR_SENSOR
 #include "libraries/IRremote/IRremote.cpp"
-#include "libraries/NewPing/NewPing.cpp"
+#endif
+//#include "libraries/NewPing/NewPing.cpp"
 #include "driver/ultrasonic_sensor/Ultrasonic_sensor.cpp"
 #include "driver/rgb_led/RGB_Led.cpp"
 #include "driver//Button/Button.cpp"

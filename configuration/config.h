@@ -47,7 +47,7 @@
 
   #ifdef PT_LIGHT_SENSOR
     #define LIGHT_SENSOR
-    #define LIGHT_SENSOR_BORDER                  50
+    #define LIGHT_SENSOR_BORDER                  20
     #define LIGHT_SENSOR_ANALOG_PIN              0
   #endif
 

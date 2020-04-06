@@ -15,7 +15,7 @@ Color_t RGB_Led::getCurrentColor()
 void RGB_Led::changeCurrentColor(Color_t newColor)
 {
   currentColor = newColor;
-  DEBUG_PRINTLN("CURRENT COLOR: " + String(currentColor));
+  //DEBUG_PRINTLN("CURRENT COLOR: " + String(currentColor));
 }
 
 void RGB_Led::setCurrentColor()

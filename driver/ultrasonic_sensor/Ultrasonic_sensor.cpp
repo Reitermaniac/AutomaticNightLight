@@ -2,19 +2,21 @@
 void Ultrasonic_sensor::begin()
 {
   timeOfLastMeasurement = 0;
+  lastMeasuredValue = 0;
 }
 
-unsigned int Ultrasonic_sensor::getDistance()
+void Ultrasonic_sensor::getDistance()
 {
   if((millis() - timeOfLastMeasurement) >= TIME_BETWEEN_MEASUREMENTS_MS)
   {
     timeOfLastMeasurement = millis();
-    return sonar.ping_cm();
+    lastMeasuredValue = sonar.ping();
   }
-  else
-  {
-    return 0;
-  }
+}
+
+unsigned int Ultrasonic_sensor::getLastMeasuredValue()
+{
+  return lastMeasuredValue;
 }
 #endif
 
