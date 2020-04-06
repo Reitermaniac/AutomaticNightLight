@@ -19,14 +19,16 @@
   #ifdef PT_SETTING_BUTTON
     #define SETTING_BUTTON
     #define BUTTON_SENSOR_PIN                    10
-    #define BUTTON_PERM_PIN                      9
+    #define BUTTON_PERM_PIN                      11
+    #define BUTTON_PERM_ON_PIN                   9
+    #define BUTTON_PERM_OFF_PIN                  7
     #define BUTTON_TOGGLE_COLOR_PIN              2
     #define BUTTON_TOGGLE_ON_OFF_PIN             4
     typedef enum {
       POWER,
       COLOR,
       AUTO,
-      PERM
+      PERM,
     } ButtonMode_t;
   #endif
 

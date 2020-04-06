@@ -77,6 +77,7 @@ void Mode::changeOperationMode(IrSignals_t lastSignal)
 #endif
 
 #ifdef RGB_LED
+
 void Mode::activeMode()
 {
   switch (mode) {
@@ -90,7 +91,16 @@ void Mode::activeMode()
       }
       break;
     case PERMANENT:
-      rgb_led.setCurrentColor();
+      if (digitalRead(BUTTON_PERM_ON_PIN) == LOW)
+      {
+        DEBUG_PRINTLN("Button Perm off");
+        rgb_led.setCurrentColor();
+      }
+      else if (digitalRead(BUTTON_PERM_OFF_PIN) == LOW)
+      {
+        DEBUG_PRINTLN("Button Perm off");
+        rgb_led.setColor(255,255,255);
+      }
       break;
     default:
       //Do nothing
